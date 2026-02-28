@@ -1,0 +1,53 @@
+package br.com.centroweg.escola.model;
+
+public class Nota {
+    private Integer id;
+    private Integer alunoId;
+    private Integer aulaId;
+    private Double valor;
+
+    public Nota(Integer alunoId, Integer aulaId, Double valor) {
+        this.alunoId = alunoId;
+        this.aulaId = aulaId;
+        this.valor = valor;
+    }
+
+    public Nota(Integer id, Integer alunoId, Integer aulaId, Double valor) {
+        this.id = id;
+        this.alunoId = alunoId;
+        this.aulaId = aulaId;
+        this.valor = valor;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getAlunoId() {
+        return alunoId;
+    }
+
+    public void setAlunoId(Integer alunoId) {
+        this.alunoId = alunoId;
+    }
+
+    public Integer getAulaId() {
+        return aulaId;
+    }
+
+    public void setAulaId(Integer aulaId) {
+        this.aulaId = aulaId;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+}
