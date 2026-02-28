@@ -135,6 +135,19 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
 
     @Override
     public boolean exists(Integer id) {
-        return false;
+        String sql = """
+                SELECT id
+                FROM professor
+                WHERE id = ?
+                """;
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setInt(1, id);
+            try(ResultSet rs = stmt.executeQuery()){
+                return rs.next();
+            }
+        } catch (SQLException e){
+            throw new RuntimeException("Professor não existe", e);
+        }
     }
 }
