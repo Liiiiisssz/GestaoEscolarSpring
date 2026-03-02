@@ -1,4 +1,4 @@
-package br.com.centroweg.escola.repository.Curso;
+package br.com.centroweg.escola.repository.curso;
 
 import br.com.centroweg.escola.model.Curso;
 
