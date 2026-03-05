@@ -21,7 +21,7 @@ public class CursoRepositoryImpl implements CursoRepository{
             SELECT c.id,
                    c.nome,
                    c.codigo,
-                   p.nome as professor_nome
+                   p.nome AS professor_nome
             FROM curso c
             LEFT JOIN turma t ON t.curso_id = c.id
             LEFT JOIN professor p ON p.id = t.professor_id
@@ -73,7 +73,7 @@ public class CursoRepositoryImpl implements CursoRepository{
                             rs.getString("nome"),
                             rs.getString("codigo")
                     );
-                    curso.setNomesProfessores(findProfessors(id));
+                    curso.setNomesProfessores(findProfessors(id, conn));
                     return Optional.of(curso);
                 }
             }
@@ -162,7 +162,7 @@ public class CursoRepositoryImpl implements CursoRepository{
     }
 
     @Override
-    public List<String> findProfessors(Integer id) {
+    public List<String> findProfessors(Integer id, Connection conn) throws SQLException{
         List<String> nomes = new ArrayList<>();
         String sql = """
                 SELECT DISTINCT p.nome
@@ -170,8 +170,7 @@ public class CursoRepositoryImpl implements CursoRepository{
                 JOIN turma t ON t.professor_id = p.id
                 WHERE t.curso_id = ?
                 """;
-        try(Connection conn = dataSource.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setInt(1, id);
             try(ResultSet rs = stmt.executeQuery()){
                 while(rs.next()){
@@ -179,8 +178,6 @@ public class CursoRepositoryImpl implements CursoRepository{
                 }
             }
             return nomes;
-        } catch (SQLException e){
-            throw new RuntimeException("Erro ao buscar nomes de professores", e);
         }
     }
 }

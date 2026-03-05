@@ -2,6 +2,8 @@ package br.com.centroweg.escola.repository.curso;
 
 import br.com.centroweg.escola.model.Curso;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,5 +14,5 @@ public interface CursoRepository {
     void update(Curso curso);
     void delete(Integer id);
     boolean exists(Integer id);
-    List<String> findProfessors(Integer id);
+    List<String> findProfessors(Integer id, Connection conn) throws SQLException;
 }

@@ -27,16 +27,15 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
                 FROM professor
                 """;
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
-                    professors.add(new Professor(
-                            rs.getInt("id"),
-                            rs.getString("nome"),
-                            rs.getString("email"),
-                            rs.getString("disciplina")
-                    ));
-                }
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()){
+            while(rs.next()){
+                professors.add(new Professor(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("disciplina")
+                ));
             }
         } catch (SQLException e){
             throw new RuntimeException("Erro ao buscar professores", e);

@@ -9,8 +9,6 @@ public interface AlunoController {
     List<AlunoRespostaDTO> findAll();
     AlunoRespostaDTO findById(Integer id);
     AlunoRespostaDTO save(AlunoRequisicaoDTO requisicaoDTO);
-
     AlunoRespostaDTO update(Integer id, AlunoRequisicaoDTO requisicaoDTO);
-
     void delete(Integer id);
 }

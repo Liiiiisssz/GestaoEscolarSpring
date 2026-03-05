@@ -3,7 +3,9 @@ package br.com.centroweg.escola.model;
 public class Nota {
     private Integer id;
     private Integer alunoId;
+    private String alunoNome;
     private Integer aulaId;
+    private String aulaAssunto;
     private Double valor;
 
     public Nota(Integer alunoId, Integer aulaId, Double valor) {
@@ -12,11 +14,36 @@ public class Nota {
         this.valor = valor;
     }
 
+    public Nota(Integer id, Integer alunoId, String alunoNome, Integer aulaId, String aulaAssunto, Double valor) {
+        this.id = id;
+        this.alunoId = alunoId;
+        this.alunoNome = alunoNome;
+        this.aulaId = aulaId;
+        this.aulaAssunto = aulaAssunto;
+        this.valor = valor;
+    }
+
     public Nota(Integer id, Integer alunoId, Integer aulaId, Double valor) {
         this.id = id;
         this.alunoId = alunoId;
         this.aulaId = aulaId;
         this.valor = valor;
+    }
+
+    public String getAlunoNome() {
+        return alunoNome;
+    }
+
+    public void setAlunoNome(String alunoNome) {
+        this.alunoNome = alunoNome;
+    }
+
+    public String getAulaAssunto() {
+        return aulaAssunto;
+    }
+
+    public void setAulaAssunto(String aulaAssunto) {
+        this.aulaAssunto = aulaAssunto;
     }
 
     public Integer getId() {

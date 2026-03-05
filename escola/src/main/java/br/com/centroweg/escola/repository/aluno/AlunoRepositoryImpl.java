@@ -28,17 +28,16 @@ public class AlunoRepositoryImpl implements AlunoRepository{
                 FROM aluno
                 """;
         try(Connection conn = dataSource.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
-                    alunos.add(new Aluno(
-                            rs.getInt("id"),
-                            rs.getString("nome"),
-                            rs.getString("email"),
-                            rs.getString("matricula"),
-                            rs.getDate("data_nascimento").toLocalDate()
-                    ));
-                }
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()){
+            while(rs.next()){
+                alunos.add(new Aluno(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("matricula"),
+                        rs.getDate("data_nascimento").toLocalDate()
+                ));
             }
         } catch (SQLException e){
             throw new RuntimeException("Erro ao buscar alunos", e);
