@@ -4,6 +4,7 @@ import br.com.centroweg.escola.application.aluno.dto.AlunoNotasRespostaDTO;
 import br.com.centroweg.escola.application.aluno.dto.AlunoRequisicaoDTO;
 import br.com.centroweg.escola.application.aluno.dto.AlunoRespostaDTO;
 import br.com.centroweg.escola.application.aluno.AlunoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,12 @@ public class AlunoController {
     }
 
     @PostMapping
-    public AlunoRespostaDTO save(@RequestBody AlunoRequisicaoDTO requisicaoDTO) {
+    public AlunoRespostaDTO save(@Valid @RequestBody AlunoRequisicaoDTO requisicaoDTO) {
         return service.save(requisicaoDTO);
     }
 
     @PutMapping("/{id}")
-    public AlunoRespostaDTO update(@PathVariable Integer id, @RequestBody AlunoRequisicaoDTO requisicaoDTO) {
+    public AlunoRespostaDTO update(@PathVariable Integer id, @Valid @RequestBody AlunoRequisicaoDTO requisicaoDTO) {
         return service.update(requisicaoDTO, id);
     }
 

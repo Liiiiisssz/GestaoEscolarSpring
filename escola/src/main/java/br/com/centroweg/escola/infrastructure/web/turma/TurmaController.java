@@ -3,6 +3,7 @@ package br.com.centroweg.escola.infrastructure.web.turma;
 import br.com.centroweg.escola.application.turma.dto.TurmaRequisicaoDTO;
 import br.com.centroweg.escola.application.turma.dto.TurmaRespostaDTO;
 import br.com.centroweg.escola.application.turma.TurmaService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,12 +27,12 @@ public class TurmaController {
     }
 
     @PostMapping
-    public TurmaRespostaDTO save(@RequestBody TurmaRequisicaoDTO requisicaoDTO) {
+    public TurmaRespostaDTO save(@Valid @RequestBody TurmaRequisicaoDTO requisicaoDTO) {
         return service.save(requisicaoDTO);
     }
 
     @PutMapping("/{id}")
-    public TurmaRespostaDTO update(@RequestBody TurmaRequisicaoDTO requisicaoDTO, @PathVariable Integer id) {
+    public TurmaRespostaDTO update(@Valid @RequestBody TurmaRequisicaoDTO requisicaoDTO, @PathVariable Integer id) {
         return service.update(requisicaoDTO, id);
     }
 

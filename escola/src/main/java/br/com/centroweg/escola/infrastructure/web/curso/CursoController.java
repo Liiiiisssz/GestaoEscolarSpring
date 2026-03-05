@@ -3,6 +3,7 @@ package br.com.centroweg.escola.infrastructure.web.curso;
 import br.com.centroweg.escola.application.curso.dto.CursoRequisicaoDTO;
 import br.com.centroweg.escola.application.curso.dto.CursoRespostaDTO;
 import br.com.centroweg.escola.application.curso.CursoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +28,12 @@ public class CursoController{
     }
 
     @PostMapping
-    public CursoRespostaDTO save(@RequestBody CursoRequisicaoDTO requisicaoDTO) {
+    public CursoRespostaDTO save(@Valid @RequestBody CursoRequisicaoDTO requisicaoDTO) {
         return service.save(requisicaoDTO);
     }
 
     @PutMapping("/{id}")
-    public CursoRespostaDTO update(@RequestBody CursoRequisicaoDTO requisicaoDTO, @PathVariable Integer id) {
+    public CursoRespostaDTO update(@Valid @RequestBody CursoRequisicaoDTO requisicaoDTO, @PathVariable Integer id) {
         return service.update(requisicaoDTO, id);
     }
 

@@ -3,6 +3,7 @@ package br.com.centroweg.escola.infrastructure.web.aula;
 import br.com.centroweg.escola.application.aula.dto.AulaRequisicaoDTO;
 import br.com.centroweg.escola.application.aula.dto.AulaRespostaDTO;
 import br.com.centroweg.escola.application.aula.AulaService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,12 +27,12 @@ public class AulaController{
     }
 
     @PostMapping
-    public AulaRespostaDTO save(@RequestBody AulaRequisicaoDTO requisicaoDTO) {
+    public AulaRespostaDTO save(@Valid @RequestBody AulaRequisicaoDTO requisicaoDTO) {
         return service.save(requisicaoDTO);
     }
 
     @PutMapping("/{id}")
-    public AulaRespostaDTO update(@RequestBody AulaRequisicaoDTO requisicaoDTO, @PathVariable Integer id) {
+    public AulaRespostaDTO update(@Valid @RequestBody AulaRequisicaoDTO requisicaoDTO, @PathVariable Integer id) {
         return service.update(requisicaoDTO, id);
     }
 
