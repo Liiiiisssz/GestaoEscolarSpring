@@ -22,12 +22,15 @@ public class CursoMapperImpl implements CursoMapper{
         return new CursoRespostaDTO(
                 curso.getId(),
                 curso.getNome(),
-                curso.getCodigo()
+                curso.getCodigo(),
+                curso.getNomesProfessores()
         );
     }
 
     @Override
     public List<CursoRespostaDTO> toDTOList(List<Curso> cursos) {
-        return List.of();
+        return cursos.stream()
+                .map(this::toDTO)
+                .toList();
     }
 }

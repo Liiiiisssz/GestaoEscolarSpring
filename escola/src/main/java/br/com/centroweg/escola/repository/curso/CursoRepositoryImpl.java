@@ -5,9 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class CursoRepositoryImpl implements CursoRepository{
@@ -18,26 +16,40 @@ public class CursoRepositoryImpl implements CursoRepository{
 
     @Override
     public List<Curso> findAll() {
-        List<Curso> cursos = new ArrayList<>();
+        Map<Integer, Curso> cursos = new LinkedHashMap<>();
         String sql = """
-                SELECT id,
-                       nome,
-                       codigo
-                FROM curso
-                """;
-        try(Connection conn = dataSource.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
-            try(ResultSet rs = stmt.executeQuery()){
-                while (rs.next()){
-                    cursos.add(new Curso(
-                            rs.getInt("id"),
-                            rs.getString("nome"),
-                            rs.getString("codigo")
-                    ));
+            SELECT c.id,
+                   c.nome,
+                   c.codigo,
+                   p.nome as professor_nome
+            FROM curso c
+            LEFT JOIN turma t ON t.curso_id = c.id
+            LEFT JOIN professor p ON p.id = t.professor_id
+            """;
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Integer id = rs.getInt("id");
+                Curso curso = cursos.computeIfAbsent(id, k -> {
+                    try {
+                        return new Curso(
+                                id,
+                                rs.getString("nome"),
+                                rs.getString("codigo"),
+                                new ArrayList<>()
+                        );
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                String nomeProfessor = rs.getString("professor_nome");
+                if (nomeProfessor != null && !curso.getNomesProfessores().contains(nomeProfessor)) {
+                    curso.getNomesProfessores().add(nomeProfessor);
                 }
             }
-            return cursos;
-        } catch (SQLException e){
+            return new ArrayList<>(cursos.values());
+        } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar cursos", e);
         }
     }
@@ -56,11 +68,13 @@ public class CursoRepositoryImpl implements CursoRepository{
             stmt.setInt(1, id);
             try(ResultSet rs = stmt.executeQuery()){
                 if (rs.next()) {
-                    return Optional.of(new Curso(
+                    Curso curso = new Curso(
                             rs.getInt("id"),
                             rs.getString("nome"),
                             rs.getString("codigo")
-                    ));
+                    );
+                    curso.setNomesProfessores(findProfessors(id));
+                    return Optional.of(curso);
                 }
             }
             return Optional.empty();
@@ -144,6 +158,29 @@ public class CursoRepositoryImpl implements CursoRepository{
             }
         } catch (SQLException e){
             throw new RuntimeException("Curso não existe", e);
+        }
+    }
+
+    @Override
+    public List<String> findProfessors(Integer id) {
+        List<String> nomes = new ArrayList<>();
+        String sql = """
+                SELECT DISTINCT p.nome
+                FROM professor p
+                JOIN turma t ON t.professor_id = p.id
+                WHERE t.curso_id = ?
+                """;
+        try(Connection conn = dataSource.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setInt(1, id);
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    nomes.add(rs.getString("nome"));
+                }
+            }
+            return nomes;
+        } catch (SQLException e){
+            throw new RuntimeException("Erro ao buscar nomes de professores", e);
         }
     }
 }

@@ -12,4 +12,5 @@ public interface CursoRepository {
     void update(Curso curso);
     void delete(Integer id);
     boolean exists(Integer id);
+    List<String> findProfessors(Integer id);
 }
