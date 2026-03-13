@@ -4,7 +4,6 @@ import br.com.centroweg.escola.application.nota.dto.NotaRequisicaoDTO;
 import br.com.centroweg.escola.application.nota.dto.NotaRespostaDTO;
 import br.com.centroweg.escola.application.nota.mapper.NotaMapper;
 import br.com.centroweg.escola.domain.nota.Nota;
-import br.com.centroweg.escola.domain.nota.NotaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -10,7 +10,8 @@ import java.util.List;
 @Component
 public class AulaMapper {
     public Aula toEntity(AulaRequisicaoDTO requisicaoDTO) {
-        return new Aula(
+        return Aula.builder()
+                .turma(requisicaoDTO.turmaId()).build();
                 requisicaoDTO.turmaId(),
                 requisicaoDTO.dataHora(),
                 requisicaoDTO.assunto()

@@ -4,7 +4,6 @@ import br.com.centroweg.escola.application.professor.dto.ProfessorRequisicaoDTO;
 import br.com.centroweg.escola.application.professor.dto.ProfessorRespostaDTO;
 import br.com.centroweg.escola.application.professor.mapper.ProfessorMapper;
 import br.com.centroweg.escola.domain.professor.Professor;
-import br.com.centroweg.escola.domain.professor.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

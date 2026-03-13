@@ -4,7 +4,6 @@ import br.com.centroweg.escola.application.turma.dto.TurmaRequisicaoDTO;
 import br.com.centroweg.escola.application.turma.dto.TurmaRespostaDTO;
 import br.com.centroweg.escola.application.turma.mapper.TurmaMapper;
 import br.com.centroweg.escola.domain.turma.Turma;
-import br.com.centroweg.escola.domain.turma.TurmaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

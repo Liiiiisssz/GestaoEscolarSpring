@@ -10,6 +10,7 @@ public record AlunoRequisicaoDTO(
         @NotBlank(message = "O nome não deve ser vazio")
         String nome,
         @Email(message = "Formato de email inválido")
+        @NotBlank
         String email,
         @NotBlank(message = "A matrícula não deve ser vazia")
         String matricula,

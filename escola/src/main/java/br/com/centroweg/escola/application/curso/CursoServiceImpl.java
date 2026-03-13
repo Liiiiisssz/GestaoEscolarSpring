@@ -4,7 +4,6 @@ import br.com.centroweg.escola.application.curso.dto.CursoRequisicaoDTO;
 import br.com.centroweg.escola.application.curso.dto.CursoRespostaDTO;
 import br.com.centroweg.escola.application.curso.mapper.CursoMapper;
 import br.com.centroweg.escola.domain.curso.Curso;
-import br.com.centroweg.escola.domain.curso.CursoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

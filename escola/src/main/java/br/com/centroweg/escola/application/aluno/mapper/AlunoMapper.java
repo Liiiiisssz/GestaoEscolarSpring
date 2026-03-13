@@ -11,12 +11,11 @@ import java.util.List;
 @Component
 public class AlunoMapper {
     public Aluno toEntity(AlunoRequisicaoDTO requisicaoDTO) {
-        return new Aluno(
-                requisicaoDTO.nome(),
-                requisicaoDTO.email(),
-                requisicaoDTO.matricula(),
-                requisicaoDTO.dataNascimento()
-        );
+        return  Aluno.builder()
+                .nome(requisicaoDTO.nome())
+                .email(requisicaoDTO.email())
+                .matricula(requisicaoDTO.matricula())
+                .dataNascimento(requisicaoDTO.dataNascimento()).build();
     }
 
     public AlunoRespostaDTO toDTO(Aluno aluno) {
@@ -32,20 +31,6 @@ public class AlunoMapper {
     public List<AlunoRespostaDTO> toDTOList(List<Aluno> alunos) {
         return alunos.stream()
                 .map(this::toDTO)
-                .toList();
-    }
-
-    public AlunoNotasRespostaDTO toDTONota(Nota nota){
-        return new AlunoNotasRespostaDTO(
-                nota.getAlunoNome(),
-                nota.getAulaAssunto(),
-                nota.getValor()
-        );
-    }
-
-    public List<AlunoNotasRespostaDTO> toDTOListNota(List<Nota> notas){
-        return notas.stream()
-                .map(this::toDTONota)
                 .toList();
     }
 }
